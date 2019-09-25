@@ -5,6 +5,7 @@
                <!-- exact关键字可以让按钮的样式消失 -->
                <router-link to="/" exact>博客</router-link>
                <router-link to="/add" exact>写博客</router-link>
+               <router-link to="/game" exact>游戏</router-link>
            </li>
        </ul>
    </nav>
