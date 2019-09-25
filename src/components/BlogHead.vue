@@ -6,9 +6,13 @@
                <router-link to="/" exact>博客</router-link>
                <router-link to="/add" exact>写博客</router-link>
 <<<<<<< HEAD
+<<<<<<< HEAD
                <router-link to="/game" exact>游戏</router-link>
 =======
 >>>>>>> 添加，展示功能路由跳转都已经实现，数据未上传到自己的数据库
+=======
+               <router-link to="/game" exact>游戏</router-link>
+>>>>>>> 添加游戏界面，创建相应的路由和组件
            </li>
        </ul>
    </nav>
