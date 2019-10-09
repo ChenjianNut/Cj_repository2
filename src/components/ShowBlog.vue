@@ -24,13 +24,10 @@ export default {
         }
     },
     created(){
-        // 使用vue-resourcede 的get()方法请求数据
-        this.$http.get('https://jsonplaceholder.typicode.com/posts')
-        // this.$http.get('./../static/posts.json')
-            .then(function(data){
-                // console.log(data);
-                this.blogs = data.body.slice(0, 10);
-      	        // console.log(this.blogs);
+        //请求数据
+        this.$axios.get("http://localhost:3000/blog")
+            .then(res=>{
+                this.blogs = res.data;
             })
     },
     computed:{

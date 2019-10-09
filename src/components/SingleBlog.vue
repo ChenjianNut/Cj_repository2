@@ -1,8 +1,9 @@
 <template>
     <div id="single-blog">
         <h1>{{blog.title}}</h1>
+        <span style="font-size: 20px">作者:{{blog.author}}</span>
+        <span style="font-size: 20px">分类：{{getCategories}}</span>
         <article>{{blog.body}}</article>
-
     </div>
 </template>
 <script>
@@ -11,19 +12,25 @@ export default {
     data(){
         return {
             id:this.$route.params.id,
-            // id:1,           
-            blog:{}
+            blog:{},
         }
     },
     created(){
-        this.$http.get('https://jsonplaceholder.typicode.com/posts/'+this.id)
-            .then(function(data){
-                this.blog=data.body;
+        this.$axios.get("http://localhost:3000/blog/"+this.id)
+            .then(res=>{
+                this.blog=res.data;
             })
+    },
+    computed:{
+        getCategories:function(){
+            let a=this.blog.categories;
+            if(a){
+                return a.join(","); 
+            }           
+        }
     }
 }
 </script>
-// lang="stylus" 会报错
 <style scoped>
 #single-blog{
     max-width: 960px;
@@ -32,5 +39,19 @@ export default {
     background: #eee;
     border: 1px dotted #aaa; 
 }
-
+h1{
+    text-align: center;
+}
+span{
+    display: block;
+    margin: 10px auto;
+    padding: 10px 10px;
+    font-weight: bold;
+    line-height: 20px;
+}
+article{
+    line-height: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+}
 </style>

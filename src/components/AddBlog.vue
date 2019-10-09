@@ -6,7 +6,7 @@
       <input type="text" v-model="blog.title" required />
 
       <label >博客内容</label>
-      <textarea v-model="blog.content"></textarea>
+      <textarea v-model="blog.body"></textarea>
       <!-- 选择博客的分类 -->
       <div id="checkboxes">
         <label >Vue.js</label>
@@ -28,18 +28,19 @@
       </select>
 
       <!-- 把数据post到页面里面去 ,prevent防止刷新页面-->
-      <button @click.prevent="post">添加博客</button>
+      <button @click.prevent="addBlog">添加博客</button>
     </form>
     <!-- 为真的时候，显示出来 -->
     <div v-if="submmited">
       <h3>您的博客发布成功！</h3>
+      <button @click="close">关 闭</button>
     </div>
     <!-- 博客总览部分实现 -->
     <div id="preview">
       <h3>博客总览</h3>
       <p>博客标题：{{blog.title}}</p>
       <p>博客内容：</p>
-      <p>{{blog.content}}</p>
+      <p>{{blog.body}}</p>
 
       <!-- 博客分类部分的实现 -->
       <p>博客分类:</p>
@@ -60,7 +61,7 @@ export default {
     return {
       blog:{
         title:'',
-        content:'',
+        body:'',
         categories:[],//存储分类的属性种类
         author:''
       },
@@ -69,19 +70,25 @@ export default {
     }
   },
   methods:{
-    // 使用v-resource的$http.post()方法发送请求
-    post(){
-      // this.$http.post("https://vuedemo-b1233.firebaseio.com/posts.json",this.blog)
-       this.$http.post('https://jsonplaceholder.typicode.com/posts',this.blog)
-        .then(function(data){
-          console.log(data);
+    // 新增一个bolg
+    addBlog(){
+      this.$axios.post("http://localhost:3000/blog",this.blog)
+        .then(res=>{
            this.submmited=true;
         })
     },
+    close(){
+      this.blog={
+        title:'',
+        body:'',
+        categories:[],
+        author:''
+      },
+      this.submmited=false;
+    }
   }
 }
 </script>
-
 
 <style scoped>
 #add-blog *{
